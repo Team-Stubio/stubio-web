@@ -35,6 +35,11 @@ export const metadata: Metadata = {
     title: "Stubio",
     description: siteConfig.description,
   },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/icon.svg",
+  },
 };
 
 export default function RootLayout({
