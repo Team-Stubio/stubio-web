@@ -1,26 +1,185 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: 145 35% 98%;
+  --foreground: 145 20% 11%;
+  --muted: 140 16% 93%;
+  --muted-foreground: 148 10% 35%;
+  --card: 0 0% 100%;
+  --card-foreground: 145 20% 11%;
+  --border: 145 14% 82%;
+  --input: 145 14% 82%;
+  --primary: 145 56% 36%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 145 22% 91%;
+  --secondary-foreground: 145 26% 18%;
+  --accent: 153 57% 45%;
+  --accent-foreground: 145 24% 12%;
+  --ring: 145 56% 36%;
+}
+
+.dark {
+  --background: 156 32% 8%;
+  --foreground: 140 28% 95%;
+  --muted: 156 22% 14%;
+  --muted-foreground: 145 12% 71%;
+  --card: 156 26% 10%;
+  --card-foreground: 140 28% 95%;
+  --border: 150 18% 22%;
+  --input: 150 18% 22%;
+  --primary: 151 57% 49%;
+  --primary-foreground: 145 36% 10%;
+  --secondary: 155 23% 18%;
+  --secondary-foreground: 140 30% 94%;
+  --accent: 168 70% 45%;
+  --accent-foreground: 150 36% 11%;
+  --ring: 151 57% 49%;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-ring: hsl(var(--ring));
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  border-color: hsl(var(--border));
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  background-color: hsl(var(--background));
+  background-image: radial-gradient(
+      circle at 20% 20%,
+      hsl(var(--primary) / 0.08),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 85% 15%,
+      hsl(var(--accent) / 0.07),
+      transparent 35%
+    ),
+    linear-gradient(
+      to bottom right,
+      hsl(var(--background)),
+      hsl(var(--background))
+    );
+  color: hsl(var(--foreground));
+  font-family: var(--font-body), sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display), sans-serif;
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+.animate-accordion-down {
+  animation: accordion-down 0.2s ease-out;
+}
+
+.animate-accordion-up {
+  animation: accordion-up 0.2s ease-out;
+}
+
+.calendly-inline-widget,
+.calendly-inline-widget iframe {
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+.calendly-inline-widget {
+  position: relative;
+}
+
+.calendly-fixed iframe {
+  height: 100% !important;
+  min-height: 100% !important;
+}
+
+.code-preview {
+  background-color: hsl(156 32% 8%);
+}
+
+.code-preview .shiki {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  background-color: hsl(156 32% 8%) !important;
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+.code-preview .shiki code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+}
+
+.bad-code-preview {
+  background-color: hsl(154 24% 10%);
+}
+
+.bad-code-preview .shiki {
+  background-color: hsl(154 24% 10%) !important;
+}
+
+.bad-code-preview .shiki span,
+.bad-code-preview .shiki code,
+.bad-code-preview .shiki {
+  color: hsl(355 88% 82%) !important;
+}
+
+.bad-code-preview .shiki .line:nth-child(6) {
+  display: inline-flex;
+  width: 100%;
+  border-left: 2px solid hsl(355 78% 60%);
+  color: hsl(355 78% 60%) !important;
+  background: linear-gradient(
+    90deg,
+    hsl(355 78% 60% / 0.1),
+    hsl(355 78% 60% / 0.1),
+    hsl(355 78% 60% / 0) 100%
+  );
+}
+
+.bad-code-preview .shiki .line:nth-child(6) span {
+  color: hsl(355 78% 60%) !important;
 }
