@@ -41,7 +41,12 @@ export function SiteHeader({ locale, nav }: SiteHeaderProps) {
         <div className="flex items-center gap-2">
           <LanguageSwitcher locale={locale} />
           <ThemeToggle label={nav.theme} />
-          <BookingCtaButton locale={locale} label={nav.book} onLanding className="hidden sm:inline-flex" />
+          <BookingCtaButton
+            locale={locale}
+            onLanding
+            label={nav.book}
+            className="hidden sm:inline-flex"
+          />
         </div>
       </div>
     </header>

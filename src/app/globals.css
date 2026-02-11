@@ -65,8 +65,13 @@ html {
   scroll-behavior: smooth;
 }
 
+section[id] {
+  scroll-margin-top: 5rem;
+}
+
 body {
   min-height: 100vh;
+  overflow-x: hidden;
   background-color: hsl(var(--background));
   background-image: radial-gradient(
       circle at 20% 20%,
@@ -121,16 +126,6 @@ h4 {
   animation: accordion-up 0.2s ease-out;
 }
 
-.calendly-inline-widget,
-.calendly-inline-widget iframe {
-  width: 100% !important;
-  min-width: 0 !important;
-}
-
-.calendly-inline-widget {
-  position: relative;
-}
-
 .calendly-fixed iframe {
   height: 100% !important;
   min-height: 100% !important;
@@ -138,6 +133,8 @@ h4 {
 
 .code-preview {
   background-color: hsl(156 32% 8%);
+  width: 100%;
+  max-width: 100%;
 }
 
 .code-preview .shiki {
@@ -146,6 +143,7 @@ h4 {
   background-color: hsl(156 32% 8%) !important;
   font-size: 0.78rem;
   line-height: 1.55;
+  max-width: 100%;
 }
 
 .code-preview .shiki code {
@@ -182,4 +180,17 @@ h4 {
 
 .bad-code-preview .shiki .line:nth-child(6) span {
   color: hsl(355 78% 60%) !important;
+}
+
+@media (max-width: 640px) {
+  .code-preview .shiki {
+    font-size: 0.72rem;
+    padding: 0.85rem 0.9rem;
+  }
+
+  .code-preview .shiki code {
+    white-space: pre-wrap !important;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
 }

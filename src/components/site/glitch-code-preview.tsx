@@ -36,7 +36,7 @@ export function GlitchCodePreview({ className, html }: GlitchCodePreviewProps) {
   }, []);
 
   return (
-    <div className="relative isolate overflow-hidden rounded-[inherit]">
+    <div className="relative isolate w-full max-w-full overflow-hidden rounded-[inherit]">
       <div
         ref={ref}
         className={className}

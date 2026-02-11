@@ -1,3 +1,4 @@
+import { MapPin } from "lucide-react";
 import Link from "next/link";
 
 import type { SiteCopy } from "@/i18n/copy";
@@ -24,7 +25,12 @@ export function SiteFooter({ locale, footer, themeLabel }: SiteFooterProps) {
         <div className="grid gap-8 text-sm text-muted-foreground md:grid-cols-[1.65fr_1.35fr]">
           <div>
             <p className="mb-3 max-w-md leading-relaxed">{footer.about}</p>
-            <p className="font-medium text-foreground">{footer.city}</p>
+            <p className="inline-flex items-center gap-2 font-medium text-foreground">
+              <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                <MapPin className="h-3 w-3 fill-current" />
+              </span>
+              {footer.city}
+            </p>
           </div>
           <div className="grid gap-8 md:grid-cols-2 md:justify-self-end">
             <div className="md:justify-self-end">
@@ -45,7 +51,10 @@ export function SiteFooter({ locale, footer, themeLabel }: SiteFooterProps) {
                 <Link href={`/${locale}#faq`} className="hover:text-primary">
                   {footer.faq}
                 </Link>
-                <Link href={`/${locale}/privacy`} className="hover:text-primary">
+                <Link
+                  href={`/${locale}/privacy`}
+                  className="hover:text-primary"
+                >
                   {footer.privacy}
                 </Link>
                 <Link href={`/${locale}/terms`} className="hover:text-primary">
@@ -76,19 +85,14 @@ export function SiteFooter({ locale, footer, themeLabel }: SiteFooterProps) {
                 >
                   {footer.linkedin}
                 </a>
-                <a
-                  href={siteConfig.calendlyUrl}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="hover:text-primary"
-                >
+                <Link href="#book-meeting" className="hover:text-primary">
                   {footer.calendly}
-                </a>
+                </Link>
               </div>
             </div>
           </div>
         </div>
-        <p className="text-xs text-muted-foreground">
+        <p className="text-sm text-muted-foreground">
           {new Date().getFullYear()} Stubio. {footer.rights}
         </p>
       </div>

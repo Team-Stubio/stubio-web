@@ -41,6 +41,12 @@ import { siteConfig } from "@/lib/site-config";
 
 const serviceIcons = [AppWindow, Smartphone, Heart, Database];
 const stackIcons = [Code2, LayoutDashboard, CreditCard, Database];
+const processMockups = [
+  "/placeholders/process-1.svg",
+  "/placeholders/process-2.svg",
+  "/placeholders/process-3.svg",
+  "/placeholders/process-4.svg",
+];
 
 const codeSnippet = `type BookingRequest = {
   company: string;
@@ -92,23 +98,31 @@ export async function LandingContent({ locale, copy }: LandingContentProps) {
 
   return (
     <>
-      <section className="relative overflow-hidden pb-20 pt-16 sm:pt-20">
+      <section
+        id="hero"
+        className="relative overflow-hidden pb-20 pt-20 sm:pt-24"
+      >
         <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_15%_20%,hsl(var(--primary)/0.22),transparent_42%),radial-gradient(circle_at_85%_8%,hsl(var(--accent)/0.16),transparent_34%)]" />
         <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
           <HeroIntro
             locale={locale}
-            badge={copy.hero.badge}
             title={copy.hero.title}
             description={copy.hero.description}
             trustLine={copy.hero.trustLine}
             primaryCta={copy.hero.primaryCta}
             secondaryCta={copy.hero.secondaryCta}
+            roleDesigner={copy.hero.roleDesigner}
+            roleDeveloper={copy.hero.roleDeveloper}
           />
         </div>
       </section>
 
       <SectionReveal>
-        <section aria-label={copy.socialProof.title} className="py-8">
+        <section
+          id="social-proof"
+          aria-label={copy.socialProof.title}
+          className="py-8"
+        >
           <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
             <p className="mb-4 text-center text-sm text-muted-foreground">
               {copy.socialProof.title}
@@ -128,7 +142,7 @@ export async function LandingContent({ locale, copy }: LandingContentProps) {
       </SectionReveal>
 
       <SectionReveal>
-        <section className="py-16" aria-labelledby="services-title">
+        <section id="services" className="py-16" aria-labelledby="services-title">
           <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
             <div className="mb-10 max-w-2xl">
               <h2
@@ -205,6 +219,15 @@ export async function LandingContent({ locale, copy }: LandingContentProps) {
                 return (
                   <li key={step.title}>
                     <div className="h-full">
+                      <div className="relative mb-4 aspect-[4/3] w-full overflow-hidden rounded-xl border border-border/70 shadow-md shadow-black/10">
+                        <Image
+                          src={processMockups[index % processMockups.length]}
+                          alt={`${titleLabel} mockup`}
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                          className="object-cover"
+                        />
+                      </div>
                       <span className="text-2xl font-bold leading-none text-primary">
                         {indexLabel}
                       </span>
@@ -289,7 +312,11 @@ export async function LandingContent({ locale, copy }: LandingContentProps) {
       </SectionReveal>
 
       <SectionReveal>
-        <section className="py-16" aria-labelledby="comparison-title">
+        <section
+          id="comparison"
+          className="py-16"
+          aria-labelledby="comparison-title"
+        >
           <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
             <div className="mb-8 max-w-2xl">
               <h2
@@ -303,7 +330,7 @@ export async function LandingContent({ locale, copy }: LandingContentProps) {
               </p>
             </div>
             <div className="grid gap-4 lg:grid-cols-2">
-              <Card className="h-full border-red-600/40 bg-transparent">
+              <Card className="h-full min-w-0 border-red-600/40 bg-transparent">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Bug className="h-5 w-5" />
@@ -319,12 +346,12 @@ export async function LandingContent({ locale, copy }: LandingContentProps) {
                     ))}
                   </ul>
                   <GlitchCodePreview
-                    className="bad-code-preview code-preview mt-6 overflow-x-auto rounded-xl border border-red-500/35 text-red-200"
+                    className="bad-code-preview code-preview mt-6 w-full max-w-full overflow-x-auto rounded-xl border border-red-500/35 text-red-200"
                     html={badSnippetHtml}
                   />
                 </CardContent>
               </Card>
-              <Card className="h-full border-primary/35 bg-background/80">
+              <Card className="h-full min-w-0 border-primary/35 bg-background/80">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-primary">
                     <Check className="h-5 w-5" />
@@ -340,7 +367,7 @@ export async function LandingContent({ locale, copy }: LandingContentProps) {
                     ))}
                   </ul>
                   <div
-                    className="code-preview mt-6 overflow-x-auto rounded-xl border border-border/70 text-emerald-50"
+                    className="code-preview mt-6 w-full max-w-full overflow-x-auto rounded-xl border border-border/70 text-emerald-50"
                     dangerouslySetInnerHTML={{ __html: goodSnippetHtml }}
                   />
                 </CardContent>
@@ -359,7 +386,7 @@ export async function LandingContent({ locale, copy }: LandingContentProps) {
           <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
             <Card className="overflow-hidden border-primary/35 bg-card/95">
               <div className="grid gap-6 p-6 lg:grid-cols-[0.92fr_1.08fr] lg:p-8">
-                <div className="space-y-5">
+                <div className="relative space-y-5 pb-20">
                   <Badge>{copy.nav.book}</Badge>
                   <h2
                     id="booking-title"
@@ -370,15 +397,14 @@ export async function LandingContent({ locale, copy }: LandingContentProps) {
                   <p className="text-muted-foreground">
                     {copy.booking.description}
                   </p>
-                  <Button asChild size="lg" className="px-8">
-                    <a
-                      href={siteConfig.calendlyUrl}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                    >
-                      {copy.booking.cta}
-                    </a>
-                  </Button>
+                  <Image
+                    src="/images/coffee.png"
+                    alt=""
+                    width={140}
+                    height={140}
+                    aria-hidden
+                    className="pointer-events-none absolute -bottom-5 -left-10 w-48 select-none object-contain opacity-95 sm:w-56"
+                  />
                 </div>
                 <div className="w-full max-w-[500px] lg:justify-self-end">
                   <CalendlyInline
@@ -439,7 +465,7 @@ export async function LandingContent({ locale, copy }: LandingContentProps) {
       </SectionReveal>
 
       <SectionReveal>
-        <section className="py-16" aria-labelledby="stack-title">
+        <section id="stack" className="py-16" aria-labelledby="stack-title">
           <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
             <div className="mb-8 max-w-2xl">
               <h2

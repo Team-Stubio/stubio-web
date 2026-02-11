@@ -23,6 +23,8 @@ export type SiteCopy = {
     primaryCta: string;
     secondaryCta: string;
     trustLine: string;
+    roleDesigner: string;
+    roleDeveloper: string;
   };
   socialProof: {
     title: string;
@@ -131,7 +133,7 @@ export type SiteCopy = {
 export const copyByLocale: Record<Locale, SiteCopy> = {
   en: {
     metadata: {
-      title: "Stubio | Digital Product Studio in Copenhagen",
+      title: "Digital Product Studio in Copenhagen",
       description:
         "Designer + developer duo delivering high-converting websites, apps, and full-stack platforms from Copenhagen.",
     },
@@ -140,7 +142,7 @@ export const copyByLocale: Record<Locale, SiteCopy> = {
       design: "Design",
       code: "Code",
       projects: "Projects",
-      faq: "Questions",
+      faq: "FAQ",
       login: "Login",
       book: "Book a call",
       language: "Language",
@@ -155,6 +157,8 @@ export const copyByLocale: Record<Locale, SiteCopy> = {
       secondaryCta: "See how we work",
       trustLine:
         "Trusted by ambitious teams across SaaS, e-commerce, and community products.",
+      roleDesigner: "Designer",
+      roleDeveloper: "Developer",
     },
     socialProof: {
       title: "Teams we have collaborated with",
@@ -203,7 +207,7 @@ export const copyByLocale: Record<Locale, SiteCopy> = {
       description:
         "The difference between expensive rework and confident release days.",
       bad: {
-        title: "Your average code",
+        title: "Your average project",
         points: [
           "Design and code drift apart",
           "Hardcoded hacks block future features",
@@ -396,7 +400,7 @@ export const copyByLocale: Record<Locale, SiteCopy> = {
   },
   da: {
     metadata: {
-      title: "Stubio | Digitalt produktstudie i København",
+      title: "Digitalt produktstudie i København",
       description:
         "Designer + udvikler duo, der bygger konverterende websites, apps og full-stack platforme fra København.",
     },
@@ -420,6 +424,8 @@ export const copyByLocale: Record<Locale, SiteCopy> = {
       secondaryCta: "Se vores proces",
       trustLine:
         "Samarbejdspartner for ambitiøse teams inden for SaaS, e-commerce og community-produkter.",
+      roleDesigner: "Designer",
+      roleDeveloper: "Udvikler",
     },
     socialProof: {
       title: "Teams vi har arbejdet med",
@@ -467,7 +473,7 @@ export const copyByLocale: Record<Locale, SiteCopy> = {
       description:
         "Forskellen mellem dyrt efterarbejde og trygge release-dage.",
       bad: {
-        title: "Jeres gennemsnitlige kode",
+        title: "Jeres gennemsnitlige projekt",
         points: [
           "Design og kode udvikler sig hver for sig",
           "Hardcoded hacks blokerer nye features",
