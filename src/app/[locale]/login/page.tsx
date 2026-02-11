@@ -51,7 +51,8 @@ export default async function LocalizedLoginPage({
   const resolvedSearchParams = await searchParams;
   const initialErrorCode =
     resolvedSearchParams.error === "invalid_credentials" ||
-    resolvedSearchParams.error === "missing_credentials"
+    resolvedSearchParams.error === "missing_credentials" ||
+    resolvedSearchParams.error === "server_error"
       ? resolvedSearchParams.error
       : null;
   const submittedEmail = resolvedSearchParams.email?.trim() ?? "";
@@ -83,6 +84,10 @@ export default async function LocalizedLoginPage({
                   currentLocale === "da"
                     ? "Forkert email eller adgangskode. Prøv igen."
                     : "Incorrect email or password. Please try again.",
+                errorServer:
+                  currentLocale === "da"
+                    ? "Login-tjenesten er midlertidigt utilgængelig. Prøv igen om lidt."
+                    : "Login service is currently unavailable. Please try again shortly.",
                 errorGeneric:
                   currentLocale === "da"
                     ? "Login mislykkedes. Prøv igen."

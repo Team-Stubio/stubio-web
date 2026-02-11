@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-type LoginErrorCode = "missing_credentials" | "invalid_credentials";
+type LoginErrorCode = "missing_credentials" | "invalid_credentials" | "server_error";
 
 type LoginFormCopy = {
   email: string;
@@ -16,6 +16,7 @@ type LoginFormCopy = {
   submit: string;
   errorMissingCredentials: string;
   errorInvalidCredentials: string;
+  errorServer: string;
   errorGeneric: string;
 };
 
@@ -46,7 +47,9 @@ export function LoginForm({
       ? copy.errorMissingCredentials
       : errorCode === "invalid_credentials"
         ? copy.errorInvalidCredentials
-        : null;
+        : errorCode === "server_error"
+          ? copy.errorServer
+          : null;
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();

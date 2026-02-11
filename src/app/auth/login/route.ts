@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
 
 import { isLocale } from "@/i18n/locales";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { createSupabaseServerClient, isSupabaseConfigured } from "@/lib/supabase/server";
 
-type LoginErrorCode = "missing_credentials" | "invalid_credentials";
+type LoginErrorCode = "missing_credentials" | "invalid_credentials" | "server_error";
 
 function redirectWithParams(
   request: Request,
@@ -46,6 +46,17 @@ export async function POST(request: Request) {
   const locale = isLocale(localeInput) ? localeInput : "en";
   const clientRequest = isClientRequest(request);
 
+  if (!isSupabaseConfigured()) {
+    if (clientRequest) {
+      return jsonError("server_error", locale);
+    }
+
+    return redirectWithParams(request, `/${locale}/login`, {
+      error: "server_error",
+      email,
+    });
+  }
+
   if (!email || !password) {
     if (clientRequest) {
       return jsonError("missing_credentials", locale);
@@ -57,10 +68,24 @@ export async function POST(request: Request) {
     });
   }
 
-  const supabase = await createSupabaseServerClient();
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  let signInError = false;
 
-  if (error) {
+  try {
+    const supabase = await createSupabaseServerClient();
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    signInError = Boolean(error);
+  } catch {
+    if (clientRequest) {
+      return jsonError("server_error", locale);
+    }
+
+    return redirectWithParams(request, `/${locale}/login`, {
+      error: "server_error",
+      email,
+    });
+  }
+
+  if (signInError) {
     if (clientRequest) {
       return jsonError("invalid_credentials", locale);
     }

@@ -1,34 +1,35 @@
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-function getSupabaseUrl() {
-  const value = process.env.NEXT_PUBLIC_SUPABASE_URL;
+function getSupabaseConfig() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-  if (!value) {
-    throw new Error("Missing NEXT_PUBLIC_SUPABASE_URL");
+  if (!url || !anonKey) {
+    return null;
   }
 
-  return value;
-}
-
-function getSupabaseAnonKey() {
-  const value = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-  if (!value) {
-    throw new Error("Missing NEXT_PUBLIC_SUPABASE_ANON_KEY");
-  }
-
-  return value;
+  return { url, anonKey };
 }
 
 export async function updateSession(request: NextRequest) {
+  const config = getSupabaseConfig();
+
+  if (!config) {
+    return NextResponse.next({
+      request: {
+        headers: request.headers,
+      },
+    });
+  }
+
   let response = NextResponse.next({
     request: {
       headers: request.headers,
     },
   });
 
-  const supabase = createServerClient(getSupabaseUrl(), getSupabaseAnonKey(), {
+  const supabase = createServerClient(config.url, config.anonKey, {
     cookies: {
       getAll() {
         return request.cookies.getAll();

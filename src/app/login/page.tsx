@@ -31,7 +31,9 @@ export default async function LoginPage({
 
   const params = await searchParams;
   const initialErrorCode =
-    params.error === "invalid_credentials" || params.error === "missing_credentials"
+    params.error === "invalid_credentials" ||
+    params.error === "missing_credentials" ||
+    params.error === "server_error"
       ? params.error
       : null;
   const submittedEmail = params.email?.trim() ?? "";
@@ -57,6 +59,7 @@ export default async function LoginPage({
                 submit: copy.login.submit,
                 errorMissingCredentials: "Please enter both email and password.",
                 errorInvalidCredentials: "Incorrect email or password. Please try again.",
+                errorServer: "Login service is currently unavailable. Please try again shortly.",
                 errorGeneric: "Login failed. Please try again.",
               }}
             />

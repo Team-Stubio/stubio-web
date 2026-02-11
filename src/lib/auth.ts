@@ -1,17 +1,25 @@
 import { redirect } from "next/navigation";
 
 import type { Locale } from "@/i18n/locales";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { createSupabaseServerClient, isSupabaseConfigured } from "@/lib/supabase/server";
 
 export async function getAuthenticatedUser() {
-  const supabase = await createSupabaseServerClient();
-  const { data, error } = await supabase.auth.getUser();
-
-  if (error || !data.user) {
+  if (!isSupabaseConfigured()) {
     return null;
   }
 
-  return data.user;
+  try {
+    const supabase = await createSupabaseServerClient();
+    const { data, error } = await supabase.auth.getUser();
+
+    if (error || !data.user) {
+      return null;
+    }
+
+    return data.user;
+  } catch {
+    return null;
+  }
 }
 
 export async function requireAuthenticatedUser(locale: Locale) {
