@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
-import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { Caveat } from "next/font/google";
+import Image from "next/image";
+import Link from "next/link";
 
 import type { Locale } from "@/i18n/locales";
 
@@ -27,13 +27,7 @@ type HeroIntroProps = {
   roleDeveloper: string;
 };
 
-function DrawnWord({
-  word,
-  startDelay,
-}: {
-  word: string;
-  startDelay: number;
-}) {
+function DrawnWord({ word, startDelay }: { word: string; startDelay: number }) {
   const letters = Array.from(word);
 
   return (
@@ -51,7 +45,11 @@ function DrawnWord({
               style={{ WebkitTextStroke: "1px currentColor" }}
               initial={{ clipPath: "inset(0 100% 0 0)" }}
               animate={{ clipPath: "inset(0 0% 0 0)" }}
-              transition={{ duration: 0.2, delay: strokeDelay, ease: "easeOut" }}
+              transition={{
+                duration: 0.2,
+                delay: strokeDelay,
+                ease: "easeOut",
+              }}
             >
               {char}
             </motion.span>
@@ -147,10 +145,19 @@ export function HeroIntro({
           />
         </div>
       </div>
-      <h1 className="text-balance text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">{title}</h1>
-      <p className="mt-6 text-lg text-muted-foreground sm:text-xl">{description}</p>
+      <h1 className="text-balance text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+        {title}
+      </h1>
+      <p className="mt-6 text-lg text-muted-foreground sm:text-xl">
+        {description}
+      </p>
       <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-        <BookingCtaButton locale={locale} label={primaryCta} onLanding size="lg" />
+        <BookingCtaButton
+          locale={locale}
+          label={primaryCta}
+          onLanding
+          size="lg"
+        />
         <Button asChild size="lg" variant="outline">
           <Link href="#how-we-work" className="group">
             {secondaryCta}
@@ -158,7 +165,17 @@ export function HeroIntro({
           </Link>
         </Button>
       </div>
-      <p className="mt-6 text-sm text-muted-foreground">{trustLine}</p>
+      <p className="mt-8 inline-flex items-center gap-2 text-sm text-muted-foreground">
+        <Image
+          src="/images/denmark.svg"
+          alt=""
+          width={16}
+          height={12}
+          aria-hidden
+          className="h-3 w-auto"
+        />
+        <span className="text-sm font-medium">{trustLine}</span>
+      </p>
     </motion.div>
   );
 }

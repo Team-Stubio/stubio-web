@@ -12,7 +12,7 @@ export function withThemeCalendlyUrl(
   }
 
   if (isDark) {
-    themed.searchParams.set("background_color", "0b1612");
+    themed.searchParams.set("background_color", "13201b");
     themed.searchParams.set("text_color", "e5f5ed");
     themed.searchParams.set("primary_color", "36bf84");
   } else {

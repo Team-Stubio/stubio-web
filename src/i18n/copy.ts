@@ -155,8 +155,7 @@ export const copyByLocale: Record<Locale, SiteCopy> = {
         "We are a designer + developer duo building modern web and app experiences grounded in real user behavior and robust code.",
       primaryCta: "Book a meeting",
       secondaryCta: "See how we work",
-      trustLine:
-        "Trusted by ambitious teams across SaaS, e-commerce, and community products.",
+      trustLine: "Based in Copenhagen, Denmark",
       roleDesigner: "Designer",
       roleDeveloper: "Developer",
     },
@@ -422,8 +421,7 @@ export const copyByLocale: Record<Locale, SiteCopy> = {
         "Vi er en designer + udvikler duo, der bygger moderne web- og app-løsninger baseret på reel brugeradfærd og robust kode.",
       primaryCta: "Book et møde",
       secondaryCta: "Se vores proces",
-      trustLine:
-        "Samarbejdspartner for ambitiøse teams inden for SaaS, e-commerce og community-produkter.",
+      trustLine: "Baseret i København, Danmark",
       roleDesigner: "Designer",
       roleDeveloper: "Udvikler",
     },
