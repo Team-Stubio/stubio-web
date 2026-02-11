@@ -108,6 +108,7 @@ export type SiteCopy = {
     howWeWork: string;
     projects: string;
     faq: string;
+    login: string;
     privacy: string;
     terms: string;
     linkedin: string;
@@ -374,6 +375,7 @@ export const copyByLocale: Record<Locale, SiteCopy> = {
       howWeWork: "Our process",
       projects: "Projects",
       faq: "FAQ",
+      login: "Login",
       privacy: "Privacy",
       terms: "Terms",
       linkedin: "LinkedIn",
@@ -382,12 +384,11 @@ export const copyByLocale: Record<Locale, SiteCopy> = {
     },
     login: {
       title: "Client login",
-      subtitle:
-        "Demo interface for future client workspace access. Authentication is not connected yet.",
-      email: "Work email",
+      subtitle: "Sign in to access your private client workspace.",
+      email: "Email",
       password: "Password",
       submit: "Sign in",
-      demoHint: "This is a visual placeholder. No credentials are stored.",
+      demoHint: "Use the credentials provided for your company workspace.",
       back: "Back to site",
     },
     privacy: {
@@ -639,6 +640,7 @@ export const copyByLocale: Record<Locale, SiteCopy> = {
       howWeWork: "Sådan arbejder vi",
       projects: "Projekter",
       faq: "FAQ",
+      login: "Login",
       privacy: "Privatliv",
       terms: "Vilkår",
       linkedin: "LinkedIn",
@@ -647,13 +649,11 @@ export const copyByLocale: Record<Locale, SiteCopy> = {
     },
     login: {
       title: "Kundelogin",
-      subtitle:
-        "Demo-interface til kommende client workspace. Der er endnu ingen aktiv autentificering.",
-      email: "Arbejdsmail",
+      subtitle: "Log ind for at få adgang til dit private kundeområde.",
+      email: "Email",
       password: "Adgangskode",
       submit: "Log ind",
-      demoHint:
-        "Dette er en visuel placeholder. Ingen credentials bliver gemt.",
+      demoHint: "Brug de loginoplysninger du har modtaget til jeres workspace.",
       back: "Tilbage til siden",
     },
     privacy: {

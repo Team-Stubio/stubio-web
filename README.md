@@ -15,9 +15,10 @@ Modern, localized marketing site for Stubio built with Next.js App Router, optim
 ## Routes
 
 - `/` -> English landing page
-- `/login` -> English login placeholder
+- `/login` -> English login
 - `/en` and `/da` -> localized landing page
-- `/en/login` and `/da/login` -> localized login UI
+- `/en/login` and `/da/login` -> localized login
+- `/en/workspace` and `/da/workspace` -> authenticated client workspace
 - `/en/privacy` and `/da/privacy` -> placeholder privacy pages
 - `/en/terms` and `/da/terms` -> placeholder terms pages
 
@@ -58,6 +59,10 @@ npm run start
 Optional environment variable you may add later:
 
 - `NEXT_PUBLIC_SITE_URL` for canonical/metadata URLs.
+
+## Supabase auth + workspace setup
+
+See `SUPABASE_SETUP.md`.
 
 ## Notes
 

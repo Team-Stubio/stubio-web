@@ -51,6 +51,9 @@ export function SiteFooter({ locale, footer, themeLabel }: SiteFooterProps) {
                 <Link href={`/${locale}#faq`} className="hover:text-primary">
                   {footer.faq}
                 </Link>
+                <Link href={`/${locale}/login`} className="hover:text-primary">
+                  {footer.login}
+                </Link>
                 <Link
                   href={`/${locale}/privacy`}
                   className="hover:text-primary"

@@ -5,8 +5,14 @@ import { useTheme } from "next-themes";
 import { useMemo, useSyncExternalStore } from "react";
 
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
-export function ThemeToggle({ label }: { label: string }) {
+type ThemeToggleProps = {
+  label: string;
+  className?: string;
+};
+
+export function ThemeToggle({ label, className }: ThemeToggleProps) {
   const { setTheme, resolvedTheme, theme } = useTheme();
   const hydrated = useSyncExternalStore(
     () => () => {},
@@ -24,7 +30,10 @@ export function ThemeToggle({ label }: { label: string }) {
     <Button
       variant="outline"
       size="icon"
-      className="h-9 w-9 cursor-pointer rounded-lg border-border/80 bg-background/95 shadow-sm transition-transform hover:border-primary/50 hover:bg-card active:translate-y-0 focus-visible:ring-primary/50"
+      className={cn(
+        "h-9 w-9 cursor-pointer rounded-lg border-border/80 bg-background/95 shadow-sm transition-transform hover:border-primary/50 hover:bg-card active:translate-y-0 focus-visible:ring-primary/50",
+        className,
+      )}
       onClick={() => setTheme(isDark ? "light" : "dark")}
       aria-label={hydrated ? `${label}: ${theme ?? "system"}` : label}
       title={label}

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { SimpleHeader } from "@/components/site/simple-header";
+import { SiteHeader } from "@/components/site/site-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { copyByLocale } from "@/i18n/copy";
 import { isLocale, type Locale } from "@/i18n/locales";
@@ -37,7 +37,7 @@ export default async function LocalizedPrivacyPage({
 
   return (
     <div>
-      <SimpleHeader locale={currentLocale} nav={copy.nav} path="privacy" />
+      <SiteHeader locale={currentLocale} nav={copy.nav} />
       <main className="mx-auto w-full max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
         <Card>
           <CardHeader>

@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
-import { ArrowLeft, Lock, Mail } from "lucide-react";
+import { notFound, redirect } from "next/navigation";
+import { ArrowLeft } from "lucide-react";
 
-import { SimpleHeader } from "@/components/site/simple-header";
+import { LoginForm } from "@/components/auth/login-form";
+import { SiteHeader } from "@/components/site/site-header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { copyByLocale } from "@/i18n/copy";
 import { isLocale, type Locale } from "@/i18n/locales";
+import { getAuthenticatedUser } from "@/lib/auth";
 
 export async function generateMetadata({
   params,
@@ -29,8 +29,10 @@ export async function generateMetadata({
 
 export default async function LocalizedLoginPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ error?: string; email?: string }>;
 }) {
   const { locale } = await params;
 
@@ -40,11 +42,24 @@ export default async function LocalizedLoginPage({
 
   const currentLocale = locale as Locale;
   const copy = copyByLocale[currentLocale];
+  const user = await getAuthenticatedUser();
+
+  if (user) {
+    redirect(`/${currentLocale}/workspace?tab=overview`);
+  }
+
+  const resolvedSearchParams = await searchParams;
+  const initialErrorCode =
+    resolvedSearchParams.error === "invalid_credentials" ||
+    resolvedSearchParams.error === "missing_credentials"
+      ? resolvedSearchParams.error
+      : null;
+  const submittedEmail = resolvedSearchParams.email?.trim() ?? "";
 
   return (
     <div>
-      <SimpleHeader locale={currentLocale} nav={copy.nav} path="login" />
-      <main className="mx-auto grid min-h-[calc(100vh-64px)] w-full max-w-6xl place-items-center px-4 py-10 sm:px-6 lg:px-8">
+      <SiteHeader locale={currentLocale} nav={copy.nav} />
+      <main className="mx-auto grid min-h-[calc(100dvh-65px)] w-full max-w-6xl place-items-center px-4 py-10 sm:px-6 lg:px-8">
         <Card className="w-full max-w-md border-border/70 bg-card/95">
           <CardHeader>
             <Badge className="mb-3 w-fit">Stubio Workspace</Badge>
@@ -52,27 +67,30 @@ export default async function LocalizedLoginPage({
             <CardDescription>{copy.login.subtitle}</CardDescription>
           </CardHeader>
           <CardContent>
-            <form className="space-y-4" action="#" method="post">
-              <div className="space-y-2">
-                <Label htmlFor="email">{copy.login.email}</Label>
-                <div className="relative">
-                  <Mail className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                  <Input id="email" type="email" placeholder="name@company.com" className="pl-9" />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="password">{copy.login.password}</Label>
-                <div className="relative">
-                  <Lock className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                  <Input id="password" type="password" placeholder="••••••••" className="pl-9" />
-                </div>
-              </div>
-              <Button type="submit" className="w-full">
-                {copy.login.submit}
-              </Button>
-            </form>
+            <LoginForm
+              locale={currentLocale}
+              initialEmail={submittedEmail}
+              initialErrorCode={initialErrorCode}
+              copy={{
+                email: copy.login.email,
+                password: copy.login.password,
+                submit: copy.login.submit,
+                errorMissingCredentials:
+                  currentLocale === "da"
+                    ? "Indtast både email og adgangskode."
+                    : "Please enter both email and password.",
+                errorInvalidCredentials:
+                  currentLocale === "da"
+                    ? "Forkert email eller adgangskode. Prøv igen."
+                    : "Incorrect email or password. Please try again.",
+                errorGeneric:
+                  currentLocale === "da"
+                    ? "Login mislykkedes. Prøv igen."
+                    : "Login failed. Please try again.",
+              }}
+            />
             <p className="mt-4 text-xs text-muted-foreground">{copy.login.demoHint}</p>
-            <Button asChild variant="ghost" className="mt-3 px-0">
+            <Button asChild variant="ghost" className="mt-3">
               <Link href={`/${currentLocale}`}>
                 <ArrowLeft className="h-4 w-4" />
                 {copy.login.back}
