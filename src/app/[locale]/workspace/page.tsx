@@ -85,8 +85,20 @@ type WorkspaceCopy = {
     futureTitle: string;
     pastTitle: string;
     empty: string;
+    itemLabel: string;
+    dateLabel: string;
+    amountLabel: string;
+    actionLabel: string;
+    openReceipt: string;
     dueLabel: string;
     issuedLabel: string;
+    statuses: {
+      scheduled: string;
+      pending: string;
+      paid: string;
+      overdue: string;
+      unknown: string;
+    };
   };
   setupWarning: string;
 };
@@ -125,8 +137,20 @@ const workspaceCopyByLocale: Record<Locale, WorkspaceCopy> = {
       futureTitle: "Future payments",
       pastTitle: "Past payments",
       empty: "No payments available yet.",
+      itemLabel: "Item",
+      dateLabel: "Date",
+      amountLabel: "Amount",
+      actionLabel: "Action",
+      openReceipt: "Open receipt",
       dueLabel: "Due",
       issuedLabel: "Issued",
+      statuses: {
+        scheduled: "Scheduled",
+        pending: "Pending",
+        paid: "Paid",
+        overdue: "Overdue",
+        unknown: "Unknown",
+      },
     },
     setupWarning:
       "Some workspace tables are not available yet. Follow the Supabase setup steps to complete the workspace data model.",
@@ -164,8 +188,20 @@ const workspaceCopyByLocale: Record<Locale, WorkspaceCopy> = {
       futureTitle: "Kommende betalinger",
       pastTitle: "Tidligere betalinger",
       empty: "Ingen betalinger endnu.",
+      itemLabel: "Post",
+      dateLabel: "Dato",
+      amountLabel: "Beløb",
+      actionLabel: "Handling",
+      openReceipt: "Åbn kvittering",
       dueLabel: "Forfalder",
       issuedLabel: "Udstedt",
+      statuses: {
+        scheduled: "Planlagt",
+        pending: "Afventer",
+        paid: "Betalt",
+        overdue: "Forfalden",
+        unknown: "Ukendt",
+      },
     },
     setupWarning:
       "Nogle workspace-tabeller mangler stadig. Følg Supabase-opsætningen for at færdiggøre datamodellen.",
@@ -227,9 +263,21 @@ function isMissingTableError(code: string | undefined) {
   return code === "42P01" || code === "PGRST205";
 }
 
-function formatStatusLabel(status: string) {
-  if (!status) return "Unknown";
-  return `${status.charAt(0).toUpperCase()}${status.slice(1)}`;
+function formatStatusLabel(status: string, locale: Locale) {
+  const labels = workspaceCopyByLocale[locale].payments.statuses;
+
+  switch (status) {
+    case "scheduled":
+      return labels.scheduled;
+    case "pending":
+      return labels.pending;
+    case "paid":
+      return labels.paid;
+    case "overdue":
+      return labels.overdue;
+    default:
+      return labels.unknown;
+  }
 }
 
 export default async function WorkspacePage({
@@ -555,10 +603,10 @@ export default async function WorkspacePage({
               ) : (
                 <div className="overflow-hidden rounded-xl border border-border/60">
                   <div className="hidden grid-cols-12 gap-4 bg-muted/40 px-4 py-3 text-xs font-bold uppercase tracking-wide text-muted-foreground md:grid">
-                    <p className="col-span-5">Item</p>
-                    <p className="col-span-3">Date</p>
-                    <p className="col-span-2 text-right">Amount</p>
-                    <p className="col-span-2 text-right">Action</p>
+                    <p className="col-span-5">{workspaceCopy.payments.itemLabel}</p>
+                    <p className="col-span-3">{workspaceCopy.payments.dateLabel}</p>
+                    <p className="col-span-2 text-right">{workspaceCopy.payments.amountLabel}</p>
+                    <p className="col-span-2 text-right">{workspaceCopy.payments.actionLabel}</p>
                   </div>
                   {unifiedPayments.map((item) => (
                     <div
@@ -581,12 +629,12 @@ export default async function WorkspacePage({
                             className="h-7 px-2 text-xs font-medium text-primary hover:text-primary"
                           >
                             <Link href={item.href}>
-                              Open receipt
+                              {workspaceCopy.payments.openReceipt}
                               <ExternalLink className="h-3.5 w-3.5" />
                             </Link>
                           </Button>
                         ) : (
-                          <Badge variant="secondary">{formatStatusLabel(item.status)}</Badge>
+                          <Badge variant="secondary">{formatStatusLabel(item.status, currentLocale)}</Badge>
                         )}
                       </div>
                     </div>
