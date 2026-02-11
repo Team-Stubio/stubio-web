@@ -36,19 +36,19 @@ export async function SiteHeader({ locale, nav }: SiteHeaderProps) {
           <Logo locale={locale} />
           <nav className="hidden items-center gap-1 md:flex">
             <Button asChild variant="ghost" size="sm" className="text-sm">
-              <Link href="#how-we-work">{nav.howWeWork}</Link>
+              <Link href={`/${locale}#how-we-work`}>{nav.howWeWork}</Link>
             </Button>
             <Button asChild variant="ghost" size="sm" className="text-sm">
-              <Link href="#design">{nav.design}</Link>
+              <Link href={`/${locale}#design`}>{nav.design}</Link>
             </Button>
             <Button asChild variant="ghost" size="sm" className="text-sm">
-              <Link href="#code">{nav.code}</Link>
+              <Link href={`/${locale}#code`}>{nav.code}</Link>
             </Button>
             <Button asChild variant="ghost" size="sm" className="text-sm">
-              <Link href="#projects">{nav.projects}</Link>
+              <Link href={`/${locale}#projects`}>{nav.projects}</Link>
             </Button>
             <Button asChild variant="ghost" size="sm" className="text-sm">
-              <Link href="#faq">{nav.faq}</Link>
+              <Link href={`/${locale}#faq`}>{nav.faq}</Link>
             </Button>
           </nav>
         </div>
