@@ -409,7 +409,7 @@ export const copyByLocale: Record<Locale, SiteCopy> = {
       design: "Design",
       code: "Kode",
       projects: "Cases",
-      faq: "Spørgsmål",
+      faq: "FAQ",
       login: "Login",
       book: "Book et møde",
       language: "Sprog",

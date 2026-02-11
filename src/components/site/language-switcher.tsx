@@ -15,7 +15,7 @@ export function LanguageSwitcher({ locale, path = "" }: LanguageSwitcherProps) {
   const enHref = `/en${cleanPath}`;
 
   return (
-    <div className="flex items-center rounded-xl border border-border/70 bg-background/75 p-1">
+    <div className="flex items-center gap-1 rounded-xl border border-border/70 bg-background/75 p-1">
       <Button
         asChild
         variant={locale === "da" ? "secondary" : "ghost"}

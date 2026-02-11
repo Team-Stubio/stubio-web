@@ -1,7 +1,7 @@
 import Link from "next/link";
 
-import type { Locale } from "@/i18n/locales";
 import type { SiteCopy } from "@/i18n/copy";
+import type { Locale } from "@/i18n/locales";
 
 import { BookingCtaButton } from "@/components/site/booking-cta-button";
 import { LanguageSwitcher } from "@/components/site/language-switcher";
@@ -45,7 +45,7 @@ export function SiteHeader({ locale, nav }: SiteHeaderProps) {
             locale={locale}
             onLanding
             label={nav.book}
-            className="hidden sm:inline-flex"
+            className="hidden sm:inline-flex min-w-34"
           />
         </div>
       </div>
