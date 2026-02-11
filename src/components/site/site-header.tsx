@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { Lock } from "lucide-react";
 
 import type { SiteCopy } from "@/i18n/copy";
 import type { Locale } from "@/i18n/locales";
 
 import { BookingCtaButton } from "@/components/site/booking-cta-button";
+import { HeaderLockButton } from "@/components/site/header-lock-button";
 import { LanguageSwitcher } from "@/components/site/language-switcher";
 import { Logo } from "@/components/site/logo";
 import { ThemeToggle } from "@/components/site/theme-toggle";
@@ -53,32 +53,7 @@ export async function SiteHeader({ locale, nav }: SiteHeaderProps) {
           </nav>
         </div>
         <div className="flex items-center gap-2">
-          {user ? (
-            <form action="/auth/logout" method="post">
-              <input type="hidden" name="locale" value={locale} />
-              <Button
-                type="submit"
-                variant="outline"
-                size="icon"
-                className="h-10 w-10 cursor-pointer rounded-xl border-border/80 bg-background/95 shadow-none transition-transform hover:border-primary/50 hover:bg-card active:translate-y-0 focus-visible:ring-primary/50"
-                aria-label="Logout"
-                title="Logout"
-              >
-                <Lock className="h-3.5 w-3.5" />
-              </Button>
-            </form>
-          ) : (
-            <Button
-              asChild
-              variant="outline"
-              size="icon"
-              className="h-10 w-10 cursor-pointer rounded-xl border-border/80 bg-background/95 shadow-none transition-transform hover:border-primary/50 hover:bg-card active:translate-y-0 focus-visible:ring-primary/50"
-            >
-              <Link href={`/${locale}/login`} aria-label={nav.login} title={nav.login}>
-                <Lock className="h-3.5 w-3.5" />
-              </Link>
-            </Button>
-          )}
+          <HeaderLockButton locale={locale} isAuthenticated={Boolean(user)} loginLabel={nav.login} />
           <LanguageSwitcher locale={locale} />
           <ThemeToggle label={nav.theme} className="h-10 w-10 rounded-xl shadow-none" />
           <BookingCtaButton
